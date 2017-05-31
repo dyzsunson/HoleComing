@@ -17,8 +17,8 @@ public class Wall : MonoBehaviour {
         if (this.transform.position.z < m_destroy_z)
             Destroy(this.gameObject);
 
-        if (this.transform.position.z < 0.0f) {
-            this.renderer.
-        }
+        //if (this.transform.position.z < 0.0f) {
+           // this.renderer.
+        //}
 	}
 }
