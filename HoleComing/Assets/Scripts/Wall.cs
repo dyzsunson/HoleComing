@@ -5,9 +5,15 @@ using UnityEngine;
 public class Wall : MonoBehaviour {
     float m_speed = 2.0f;
     float m_destroy_z = -20.0f;
+    float m_check_z = -0.5f;
+
+    bool m_isChecked = false;
+    int m_total_checkPoint;
+    int m_checked_num = 0;
+
 	// Use this for initialization
 	void Start () {
-       
+        m_total_checkPoint = this.GetComponentsInChildren<WallCheckPoint>().Length;
 	}
 	
 	// Update is called once per frame
@@ -17,8 +23,14 @@ public class Wall : MonoBehaviour {
         if (this.transform.position.z < m_destroy_z)
             Destroy(this.gameObject);
 
-        //if (this.transform.position.z < 0.0f) {
-           // this.renderer.
-        //}
+        if (m_isChecked == false && this.transform.position.z < m_check_z) {
+            SceneController.context.ChangeScore(100 * m_checked_num / m_total_checkPoint);
+            m_isChecked = true;
+        }
 	}
+
+    public void OnePointChecked(WallCheckPoint checkPoint) {
+        print("check" + checkPoint.name);
+        m_checked_num++;
+    }
 }
