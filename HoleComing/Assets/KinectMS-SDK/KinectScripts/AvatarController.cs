@@ -393,9 +393,9 @@ public class AvatarController : MonoBehaviour
 		
 		yPos = jointPosition.y * moveRate - yOffset;
 		zPos = -jointPosition.z * moveRate - zOffset;
-		
-		// If we are tracking vertical movement, update the y. Otherwise leave it alone.
-		Vector3 avatarJointPos = new Vector3(xPos, bMoveVertically ? yPos : 0f, zPos);
+
+        // If we are tracking vertical movement, update the y. Otherwise leave it alone.
+        Vector3 avatarJointPos = new Vector3(xPos, bMoveVertically ? yPos : 0f, 0f);//zPos);
 		
 		return avatarJointPos;
 	}
