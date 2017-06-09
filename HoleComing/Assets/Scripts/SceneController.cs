@@ -20,7 +20,7 @@ public class SceneController : MonoBehaviour {
 		
 	}
 
-    public void ChangeScore(int score) {
-        Score_Text.text = score.ToString();
+    public void ChangeScore(int _total, int _check, int _hit) {
+        Score_Text.text = "" + _total + " " + _check + " " + _hit;
     }
 }

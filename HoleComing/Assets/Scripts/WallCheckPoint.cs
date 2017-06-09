@@ -6,6 +6,8 @@ public class WallCheckPoint : MonoBehaviour {
     bool m_isChecked = false;
     Wall m_wall;
 
+    public bool IsGood;
+
 	// Use this for initialization
 	void Start () {
         m_wall = this.transform.parent.GetComponent<Wall>();
@@ -20,6 +22,8 @@ public class WallCheckPoint : MonoBehaviour {
         if (m_isChecked == false && other.gameObject.layer == LayerMask.NameToLayer("Player")) {
             m_isChecked = true;
             m_wall.OnePointChecked(this);
+
+            Destroy(this.gameObject);
         }
     }
 }

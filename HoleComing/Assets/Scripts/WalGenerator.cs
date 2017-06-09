@@ -19,7 +19,7 @@ public class WalGenerator : MonoBehaviour {
 
     void GenWall() {
         GameObject t_wall =  Instantiate(WallPrefab);
-        t_wall.transform.position = new Vector3(0.0f, 0.8f, 35.0f);
+        t_wall.transform.position = new Vector3(0.0f, 0.0f, 35.0f);
         Invoke("GenWall", m_deltaTime);
     }
 }

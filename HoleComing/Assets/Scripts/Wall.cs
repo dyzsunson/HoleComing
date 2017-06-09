@@ -13,7 +13,12 @@ public class Wall : MonoBehaviour {
     bool m_isChecked = false;
     int m_total_checkPoint;
     int m_checked_num = 0;
+    int m_hit_num = 0;
     int[] m_wall_map;
+
+    int m_width = 40;
+    int m_height = 16;
+    float m_size = 0.05f;
 
 	// Use this for initialization
 	void Start () {
@@ -28,20 +33,21 @@ public class Wall : MonoBehaviour {
             m_wall_map[i] = int.Parse(mapStrings[i]);
         }
 
-
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 30; j++) {
+        m_total_checkPoint = 0;
+        for (int i = 0; i < m_height; i++) {
+            for (int j = 0; j < m_width; j++) {
                 GameObject obj;
-                if (m_wall_map[i * 30 + j] == 0)
+                if (m_wall_map[i * m_width + j] == 0)
                     obj = Instantiate(WallCube);
-                else
+                else {
                     obj = Instantiate(BlankCube);
+                    m_total_checkPoint++;
+                }
                 obj.transform.SetParent(this.transform);
-                obj.transform.localPosition = new Vector3(0.1f * (j - 14f), 0.1f * (-i + 7f), 0);
+                obj.transform.localScale = m_size * Vector3.one;
+                obj.transform.localPosition = new Vector3(m_size * (j - m_width / 2 + 1), m_size * (-i + m_height), 0);
             }
         }
-
-        m_total_checkPoint = this.GetComponentsInChildren<WallCheckPoint>().Length;
 	}
 	
 	// Update is called once per frame
@@ -52,13 +58,15 @@ public class Wall : MonoBehaviour {
             Destroy(this.gameObject);
 
         if (m_isChecked == false && this.transform.position.z < m_check_z) {
-            SceneController.context.ChangeScore(100 * m_checked_num / m_total_checkPoint);
+            SceneController.context.ChangeScore(m_total_checkPoint, m_checked_num, m_hit_num);
             m_isChecked = true;
         }
 	}
 
-    public void OnePointChecked(WallCheckPoint checkPoint) {
-        print("check" + checkPoint.name);
-        m_checked_num++;
+    public void OnePointChecked(WallCheckPoint _checkPoint) {
+        if (_checkPoint.IsGood)
+            m_checked_num++;
+        else
+            m_hit_num++;
     }
 }
