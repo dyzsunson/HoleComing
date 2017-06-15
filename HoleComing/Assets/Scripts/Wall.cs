@@ -17,7 +17,7 @@ public class Wall : MonoBehaviour {
     int[] m_wall_map;
 
     int m_width = 40;
-    int m_height = 16;
+    int m_height = 30;
     float m_size = 0.05f;
 
 	// Use this for initialization
